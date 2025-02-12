@@ -71,82 +71,131 @@ for (int i = 0; i < maxPets; i++)
     ourAnimals[i, 5] = "Personality: " + animalPersonalityDescription;
 }
 
-// display the top-level menu options
-
-Console.Clear();
-
-Console.WriteLine("Welcome to the Contoso PetFriends app. Your main menu options are:");
-Console.WriteLine(" 1. List all of our current pet information");
-Console.WriteLine(" 2. Add a new animal friend to the ourAnimals array");
-Console.WriteLine(" 3. Ensure animal ages and physical descriptions are complete");
-Console.WriteLine(" 4. Ensure animal nicknames and personality descriptions are complete");
-Console.WriteLine(" 5. Edit an animal’s age");
-Console.WriteLine(" 6. Edit an animal’s personality description");
-Console.WriteLine(" 7. Display all cats with a specified characteristic");
-Console.WriteLine(" 8. Display all dogs with a specified characteristic");
-Console.WriteLine();
-Console.WriteLine("Enter your selection number (or type Exit to exit the program)");
-
-readResult = Console.ReadLine();
-if (readResult != null)
+do
 {
-    menuSelection = readResult.ToLower();
-}
+    // display the top-level menu options
+    Console.Clear();
+
+    Console.WriteLine("Welcome to the Contoso PetFriends app. Your main menu options are:");
+    Console.WriteLine(" 1. List all of our current pet information");
+    Console.WriteLine(" 2. Add a new animal friend to the ourAnimals array");
+    Console.WriteLine(" 3. Ensure animal ages and physical descriptions are complete");
+    Console.WriteLine(" 4. Ensure animal nicknames and personality descriptions are complete");
+    Console.WriteLine(" 5. Edit an animal's age");
+    Console.WriteLine(" 6. Edit an animal's personality description");
+    Console.WriteLine(" 7. Display all cats with a specified characteristic");
+    Console.WriteLine(" 8. Display all dogs with a specified characteristic");
+    Console.WriteLine();
+    Console.WriteLine("Enter your selection number (or type Exit to exit the program)");
+
+    readResult = Console.ReadLine();
+    if (readResult != null)
+    {
+        menuSelection = readResult.ToLower();
+    }
 
 // Switch statement to handle menu selections
-switch (menuSelection)
-{
+    switch (menuSelection)
+    {
 // All current pet info
-    case "1":
-        Console.WriteLine("\nListing all current pet information:");
-        for (int i = 0; i < maxPets; i++)
-        {
-            if (ourAnimals[i, 0] != "ID #: ")
+        case "1":
+            Console.WriteLine("\nListing all current pet information:");
+            for (int i = 0; i < maxPets; i++)
             {
-                Console.WriteLine();
-                for (int j = 0; j < 6; j++)
+                if (ourAnimals[i, 0] != "ID #: ")
                 {
-                    if (j == 2)
+                    Console.WriteLine();
+                    for (int j = 0; j < 6; j++)
                     {
-                        string currentAge = ourAnimals[i, j];
-                        Console.WriteLine(currentAge == "Age: ?" ? "Age: ?" : currentAge);
-                    }
-                    else
-                    {
-                        Console.WriteLine(ourAnimals[i, j]);
+                        if (j == 2)
+                        {
+                            string currentAge = ourAnimals[i, j];
+                            Console.WriteLine(currentAge == "Age: ?" ? "Age: ?" : currentAge);
+                        }
+                        else
+                        {
+                            Console.WriteLine(ourAnimals[i, j]);
+                        }
                     }
                 }
             }
-        }
-        break;
-    case "2":
-        Console.WriteLine("This app feature is coming soon - please check back to see progress.");
-        break;
-    case "3":
-        Console.WriteLine("This app feature is coming soon - please check back to see progress.");
-        break;
-    case "4":
-        Console.WriteLine("This app feature is coming soon - please check back to see progress.");
-        break;
-    case "5":
-        Console.WriteLine("This app feature is coming soon - please check back to see progress.");
-        break;
-    case "6":
-        Console.WriteLine("This app feature is coming soon - please check back to see progress.");
-        break;
-    case "7":
-        Console.WriteLine("This app feature is coming soon - please check back to see progress.");
-        break;
-    case "8":
-        Console.WriteLine("This app feature is coming soon - please check back to see progress.");
-        break;
-    case "exit":
-        Console.WriteLine("Exiting the app");
-        break;
-    default:
-        Console.WriteLine("Invalid selection. Please choose a valid option.");
-        break;
-}
+            break;
+// Adds new pets
+        case "2":
+// Count current pets & remaining space
+            int petCount = 0;
+            for (int i = 0; i < maxPets; i++)
+            {
+                if (ourAnimals[i, 0] != "ID #: ")
+                {
+                    petCount++;
+                }
+            }
+            int remainingSpace = maxPets - petCount;
+            
+            Console.WriteLine($"\nWe currently have {petCount} pets that need homes. We can manage {remainingSpace} more.");
 
-Console.WriteLine("\nPress the Enter key to continue");
-readResult = Console.ReadLine();
+// Adds New until maxPets is reached
+            string? userResponse;
+            while (petCount < maxPets)
+            {
+                Console.WriteLine("Do you want to enter info for another pet (y/n)");
+                userResponse = Console.ReadLine()?.ToLower();
+
+                if (userResponse != "y")
+                    break;
+
+                animalSpecies = "";
+                animalID = $"New{petCount + 1}";
+                animalAge = "?";
+                animalPhysicalDescription = "";
+                animalPersonalityDescription = "";
+                animalNickname = "";
+
+// Add to array
+                ourAnimals[petCount, 0] = "ID #: " + animalID;
+                ourAnimals[petCount, 1] = "Species: " + animalSpecies;
+                ourAnimals[petCount, 2] = "Age: " + animalAge;
+                ourAnimals[petCount, 3] = "Nickname: " + animalNickname;
+                ourAnimals[petCount, 4] = "Physical description: " + animalPhysicalDescription;
+                ourAnimals[petCount, 5] = "Personality: " + animalPersonalityDescription;
+
+                petCount++;
+            }
+
+            if (petCount >= maxPets)
+            {
+                Console.WriteLine("We have reached our limit on the number of pets that we can manage.");
+            }
+            break;
+
+        case "3":
+            Console.WriteLine("This app feature is coming soon - please check back to see progress.");
+            break;
+        case "4":
+            Console.WriteLine("This app feature is coming soon - please check back to see progress.");
+            break;
+        case "5":
+            Console.WriteLine("This app feature is coming soon - please check back to see progress.");
+            break;
+        case "6":
+            Console.WriteLine("This app feature is coming soon - please check back to see progress.");
+            break;
+        case "7":
+            Console.WriteLine("This app feature is coming soon - please check back to see progress.");
+            break;
+        case "8":
+            Console.WriteLine("This app feature is coming soon - please check back to see progress.");
+            break;
+        case "exit":
+            Console.WriteLine("Exiting the app");
+            break;
+        default:
+            Console.WriteLine("Invalid selection. Please choose a valid option.");
+            break;
+    }
+
+    Console.WriteLine("\nPress the Enter key to continue");
+    readResult = Console.ReadLine();
+
+} while (menuSelection != "exit");
