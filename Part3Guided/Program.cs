@@ -14,7 +14,7 @@ string menuSelection = "";
 // array used to store runtime data, there is no persisted data
 string[,] ourAnimals = new string[maxPets, 6];
 
-// Convert the if-else to a switch statement
+// Convert the if-elseif-else construct to a switch statement
 
 // create some initial ourAnimals array entries
 for (int i = 0; i < maxPets; i++)
@@ -93,8 +93,40 @@ if (readResult != null)
     menuSelection = readResult.ToLower();
 }
 
-Console.WriteLine($"You selected menu option {menuSelection}.");
-Console.WriteLine("Press the Enter key to continue");
+// Switch statement to handle menu selections with placeholder code
+switch (menuSelection)
+{
+    case "1":
+        Console.WriteLine("This app feature is coming soon - please check back to see progress.");
+        break;
+    case "2":
+        Console.WriteLine("This app feature is coming soon - please check back to see progress.");
+        break;
+    case "3":
+        Console.WriteLine("This app feature is coming soon - please check back to see progress.");
+        break;
+    case "4":
+        Console.WriteLine("This app feature is coming soon - please check back to see progress.");
+        break;
+    case "5":
+        Console.WriteLine("This app feature is coming soon - please check back to see progress.");
+        break;
+    case "6":
+        Console.WriteLine("This app feature is coming soon - please check back to see progress.");
+        break;
+    case "7":
+        Console.WriteLine("This app feature is coming soon - please check back to see progress.");
+        break;
+    case "8":
+        Console.WriteLine("This app feature is coming soon - please check back to see progress.");
+        break;
+    case "exit":
+        Console.WriteLine("Exiting the app");
+        break;
+    default:
+        Console.WriteLine("Invalid selection. Please choose a valid option.");
+        break;
+}
 
-// pause code execution
+Console.WriteLine("Press the Enter key to continue");
 readResult = Console.ReadLine();
