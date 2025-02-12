@@ -93,11 +93,31 @@ if (readResult != null)
     menuSelection = readResult.ToLower();
 }
 
-// Switch statement to handle menu selections with placeholder code
+// Switch statement to handle menu selections
 switch (menuSelection)
 {
+// All current pet info
     case "1":
-        Console.WriteLine("This app feature is coming soon - please check back to see progress.");
+        Console.WriteLine("\nListing all current pet information:");
+        for (int i = 0; i < maxPets; i++)
+        {
+            if (ourAnimals[i, 0] != "ID #: ")
+            {
+                Console.WriteLine();
+                for (int j = 0; j < 6; j++)
+                {
+                    if (j == 2)
+                    {
+                        string currentAge = ourAnimals[i, j];
+                        Console.WriteLine(currentAge == "Age: ?" ? "Age: ?" : currentAge);
+                    }
+                    else
+                    {
+                        Console.WriteLine(ourAnimals[i, j]);
+                    }
+                }
+            }
+        }
         break;
     case "2":
         Console.WriteLine("This app feature is coming soon - please check back to see progress.");
@@ -128,5 +148,5 @@ switch (menuSelection)
         break;
 }
 
-Console.WriteLine("Press the Enter key to continue");
+Console.WriteLine("\nPress the Enter key to continue");
 readResult = Console.ReadLine();
