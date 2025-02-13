@@ -286,11 +286,60 @@ do
             break;
 
         case "3":
-            // Ensure animal ages and physical descriptions are complete
-            Console.WriteLine("Challenge Project - please check back soon to see progress.");
-            Console.WriteLine("Press the Enter key to continue.");
-            readResult = Console.ReadLine();
-            break;
+    // Ensure animal ages and physical descriptions are complete
+    for (int i = 0; i < maxPets; i++)
+    {
+        if (ourAnimals[i, 0] != "ID #: ")
+        {
+            string currentID = ourAnimals[i, 0].Substring("ID #: ".Length);
+            bool ageValid = false;
+            bool descValid = false;
+
+// Check and update age
+            string[] ageParts = ourAnimals[i, 2].Split(new[] { ':' }, 2);
+            string currentAge = ageParts.Length > 1 ? ageParts[1].Trim() : "";
+            if (!int.TryParse(currentAge, out int age))
+            {
+                do
+                {
+                    Console.WriteLine($"Enter an age for ID #: {currentID}");
+                    readResult = Console.ReadLine();
+                    if (readResult != null)
+                    {
+                        currentAge = readResult.Trim();
+                        ageValid = int.TryParse(currentAge, out age);
+                        if (!ageValid)
+                            Console.WriteLine("Invalid age. Please enter a valid integer.");
+                    }
+                } while (!ageValid);
+                ourAnimals[i, 2] = $"Age: {currentAge}";
+            }
+
+// Check and update
+            string[] descParts = ourAnimals[i, 4].Split(new[] { ':' }, 2);
+            string currentDesc = descParts.Length > 1 ? descParts[1].Trim() : "";
+            if (string.IsNullOrWhiteSpace(currentDesc))
+            {
+                do
+                {
+                    Console.WriteLine($"Enter a physical description for ID #: {currentID} (size, color, gender, weight, housebroken)");
+                    readResult = Console.ReadLine();
+                    if (readResult != null)
+                    {
+                        currentDesc = readResult.Trim();
+                        descValid = !string.IsNullOrWhiteSpace(currentDesc);
+                        if (!descValid)
+                            Console.WriteLine("Description cannot be empty. Please enter a valid description.");
+                    }
+                } while (!descValid);
+                ourAnimals[i, 4] = $"Physical description: {currentDesc}";
+            }
+        }
+    }
+    Console.WriteLine("Age and physical description fields are complete for all of our friends.");
+    Console.WriteLine("Press the Enter key to continue.");
+    readResult = Console.ReadLine();
+    break;
 
         case "4":
             // Ensure animal nicknames and personality descriptions are complete
