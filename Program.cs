@@ -343,9 +343,68 @@ do
 
         case "4":
             // Ensure animal nicknames and personality descriptions are complete
-            Console.WriteLine("Challenge Project - please check back soon to see progress.");
-            Console.WriteLine("Press the Enter key to continue.");
-            readResult = Console.ReadLine();
+    for (int i = 0; i < maxPets; i++)
+    {
+        if (ourAnimals[i, 0] != "ID #: ")
+        {
+            string currentID = ourAnimals[i, 0].Substring("ID #: ".Length);
+            bool validNickname = false;
+            bool validPersonality = false;
+
+// Check and update nickname
+            string[] nicknameParts = ourAnimals[i, 3].Split(new[] { ':' }, 2);
+            string currentNickname = nicknameParts.Length > 1 ? nicknameParts[1].Trim() : "";
+            if (string.IsNullOrWhiteSpace(currentNickname) || currentNickname.ToLower() == "tbd")
+            {
+                do
+                {
+                    Console.WriteLine($"Enter a nickname for ID #: {currentID}");
+                    readResult = Console.ReadLine();
+                    if (readResult != null)
+                    {
+                        currentNickname = readResult.Trim();
+                        if (!string.IsNullOrWhiteSpace(currentNickname))
+                        {
+                            validNickname = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Nickname cannot be empty. Please enter a valid nickname.");
+                        }
+                    }
+                } while (!validNickname);
+                ourAnimals[i, 3] = $"Nickname: {currentNickname}";
+            }
+
+// Check and update personality description
+            string[] personalityParts = ourAnimals[i, 5].Split(new[] { ':' }, 2);
+            string currentPersonality = personalityParts.Length > 1 ? personalityParts[1].Trim() : "";
+            if (string.IsNullOrWhiteSpace(currentPersonality) || currentPersonality.ToLower() == "tbd")
+            {
+                do
+                {
+                    Console.WriteLine($"Enter a personality description for ID #: {currentID} (likes or dislikes, tricks, energy level)");
+                    readResult = Console.ReadLine();
+                    if (readResult != null)
+                    {
+                        currentPersonality = readResult.Trim();
+                        if (!string.IsNullOrWhiteSpace(currentPersonality))
+                        {
+                            validPersonality = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Personality description cannot be empty. Please enter a valid description.");
+                        }
+                    }
+                } while (!validPersonality);
+                ourAnimals[i, 5] = $"Personality: {currentPersonality}";
+            }
+        }
+    }
+    Console.WriteLine("Nickname and personality description fields are complete for all of our friends.");
+    Console.WriteLine("Press the Enter key to continue.");
+    readResult = Console.ReadLine();
             break;
 
         case "5":
