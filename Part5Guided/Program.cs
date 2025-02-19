@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 string[] pettingZoo = 
 {
@@ -6,3 +6,13 @@ string[] pettingZoo =
     "goats", "iguanas", "kangaroos", "lemurs", "llamas", "macaws", 
     "ostriches", "pigs", "ponies", "rabbits", "sheep", "tortoises",
 };
+
+// RandomizeAnimals(); (array)
+
+// string[,] group = AssignGroup(); 
+
+Console.WriteLine("School A");
+Console.WriteLine("School B");
+Console.WriteLine("School C");
+
+// PrintGroup(group);
