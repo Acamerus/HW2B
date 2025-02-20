@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 Random random = new Random();
 Console.CursorVisible = false;
@@ -27,7 +27,15 @@ int food = 0;
 InitializeGame();
 while (!shouldExit) 
 {
-    Move();
+    // Check for terminal resize before each move, enable optional termination by default
+    if (TerminalResized())
+    {
+        Console.Clear();
+        Console.WriteLine("Console was resized. Program exiting.");
+        shouldExit = true;
+        continue;
+    }
+    Move(true);
 }
 
 // Returns true if the Terminal was resized 
@@ -45,7 +53,7 @@ void ShowFood()
     // Update food position to a random location
     foodX = random.Next(0, width - player.Length);
     foodY = random.Next(0, height - 1);
-
+    
     // Display the food at the location
     Console.SetCursorPosition(foodX, foodY);
     Console.Write(foods[food]);
@@ -67,27 +75,36 @@ void FreezePlayer()
 }
 
 // Reads directional input from the Console and moves the player
-void Move() 
+void Move(bool enableTermination = false) 
 {
     int lastX = playerX;
     int lastY = playerY;
     
-    switch (Console.ReadKey(true).Key) 
+    ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+    
+    switch (keyInfo.Key) 
     {
         case ConsoleKey.UpArrow:
             playerY--; 
             break;
-		case ConsoleKey.DownArrow: 
+        case ConsoleKey.DownArrow: 
             playerY++; 
             break;
-		case ConsoleKey.LeftArrow:  
+        case ConsoleKey.LeftArrow:  
             playerX--; 
             break;
-		case ConsoleKey.RightArrow: 
+        case ConsoleKey.RightArrow: 
             playerX++; 
             break;
-		case ConsoleKey.Escape:     
+        case ConsoleKey.Escape:     
             shouldExit = true; 
+            break;
+        default:
+            if (enableTermination)
+            {
+                shouldExit = true;
+                return;
+            }
             break;
     }
 
