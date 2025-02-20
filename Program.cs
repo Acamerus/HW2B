@@ -36,8 +36,29 @@ while (!shouldExit)
         continue;
     }
     Move(true);
+    
+    // Check if food was consumed after each move
+    if (HasConsumedFood())
+    {
+        ChangePlayer();
+        ShowFood();
+        FreezePlayer();
+    }
 }
 
+// Returns true if the player position overlaps with food position
+bool HasConsumedFood()
+{
+    // Check if player and food are on the same row
+    if (playerY != foodY) return false;
+    
+    // Check if player overlaps with any part of the food
+    int playerRight = playerX + player.Length;
+    int foodRight = foodX + 5;
+    
+    // Check for overlap
+    return playerX < foodRight && playerRight > foodX;
+}
 // Returns true if the Terminal was resized 
 bool TerminalResized() 
 {
